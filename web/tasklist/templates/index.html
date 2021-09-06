@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{ tasks|length }} Tasks</p>
+<ul class="task-list">
+    {% for task in tasks %}
+    <li>研究信号:{{ task.task.signal_name }} 研究周期:{{ task.task.start_date }}-{{ task.task.end_date }} 研究类型:{{ task.task.type }} 研究状态:{% if task.state %} {{ task.state }} {% else %} waiting {% endif %}
+    {% if task.state == "error" %} -- {{ task.errtxt }} {% endif %}
+        <span>
+            {% if task.state != "working" %}
+            <form class="inline-form" method="post" action="{{ url_for('delete', task_id=task._id) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+            {% endif %}
+            <!-- 
+            <form class="inline-form" method="post" action="{{ url_for('stop', task_id=task._id) }}">
+                <input class="btn" type="submit" name="stop" value="stop" onclick="return confirm('Are you sure?')">
+            </form>
+            -->
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~ro~">
+{% endblock %}

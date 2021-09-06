@@ -1,0 +1,11 @@
+*.wpr
+*.wpu
+*.pyc
+111
+output
+jaqs.egg-info
+__pycache__
+raw_data
+*副本.py
+datahouse
+.ipynb_checkpoints
